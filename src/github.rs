@@ -12,7 +12,12 @@ query($login: String!) {
     name login bio company location avatarUrl createdAt
     followers { totalCount }
     following  { totalCount }
-    repositories(first: 100, ownerAffiliations: OWNER, isFork: false) {
+    repositories(
+      first: 100,
+      ownerAffiliations: [OWNER, ORGANIZATION_MEMBER],
+      isFork: false,
+      orderBy: { field: STARGAZERS, direction: DESC }
+    ) {
       totalCount
       nodes {
         name description stargazerCount forkCount isPrivate
@@ -107,7 +112,10 @@ struct Count {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
 struct RepoConnection {
+    #[serde(default)]
+    total_count: u32,
     nodes: Vec<RepoNode>,
 }
 
@@ -326,7 +334,8 @@ pub async fn fetch_stats(
     let total_stars: u32 = repos.iter().map(|r| r.stargazer_count).sum();
     let total_forks: u32 = repos.iter().map(|r| r.fork_count).sum();
     let private_repos = repos.iter().filter(|r| r.is_private).count() as u32;
-    let public_repos = repos.len() as u32 - private_repos;
+    // total_count covers all matching repos, not just the first page of 100
+    let public_repos = user.repositories.total_count.saturating_sub(private_repos);
 
     let top_languages = compute_languages(repos);
     let calendar = &user.contributions_collection.contribution_calendar;
