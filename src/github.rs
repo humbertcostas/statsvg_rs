@@ -557,9 +557,21 @@ async fn fetch_avatar(
 }
 
 fn compute_languages(repos: &[RepoNode]) -> Vec<(String, String, f64)> {
+    // Comma-separated language names to exclude from the chart,
+    // e.g. STATSVG_HIDE_LANGS="HTML,CSS". Empty/unset hides nothing.
+    let hidden: Vec<String> = std::env::var("STATSVG_HIDE_LANGS")
+        .unwrap_or_default()
+        .split(',')
+        .map(|s| s.trim().to_lowercase())
+        .filter(|s| !s.is_empty())
+        .collect();
+
     let mut totals: HashMap<String, (u64, String)> = HashMap::new();
     for repo in repos {
         for edge in &repo.languages.edges {
+            if hidden.contains(&edge.node.name.to_lowercase()) {
+                continue;
+            }
             let color = edge
                 .node
                 .color
