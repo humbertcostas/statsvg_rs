@@ -21,6 +21,7 @@ env:
   STATSVG_THEME: github_dark
   STATSVG_WIDTH: '800'
   STATSVG_HIGHLIGHT: 'Currently building github.com/Ariadna-KGCS'   # e.g. "Currently building stats.example.com"
+  STATSVG_HIDE_LANGS: 'HTML,CSS'
 
 jobs:
   render:
