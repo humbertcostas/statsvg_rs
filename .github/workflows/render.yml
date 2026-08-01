@@ -17,7 +17,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  STATSVG_USER: akshay2211
+  STATSVG_USER: humbertcostas
   STATSVG_THEME: github_dark
   STATSVG_WIDTH: '800'
   STATSVG_HIGHLIGHT: ''   # e.g. "Currently building stats.example.com"
