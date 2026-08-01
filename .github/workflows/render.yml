@@ -2,7 +2,7 @@ name: Render and publish stats SVG
 
 on:
   schedule:
-    - cron: '0 */6 * * *'   # every 6 hours
+    - cron: '27 14 3 * *'   # every 6 hours
   push:
     branches: [main, master]
   workflow_dispatch:
