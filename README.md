@@ -8,17 +8,17 @@ These two SVGs are this repo's own output, re-rendered every 6 hours by the work
 
 **`profile.svg`** — for embedding in any of your repo READMEs:
 
-![Profile card](https://akshay2211.github.io/statsvg_rs/profile.svg)
+![Profile card](https://humbertcostas.github.io/statsvg_rs/profile.svg)
 
 **`stats.svg`** — for your profile README (anti-profile: lifetime totals, contributed-to repos, most-starred highlight):
 
-![Lifetime stats](https://akshay2211.github.io/statsvg_rs/stats.svg)
+![Lifetime stats](https://humbertcostas.github.io/statsvg_rs/stats.svg)
 
 Embed either with:
 
 ```markdown
-![Stats](https://akshay2211.github.io/statsvg_rs/profile.svg)
-![Lifetime stats](https://akshay2211.github.io/statsvg_rs/stats.svg)
+![Stats](https://humbertcostas.github.io/statsvg_rs/profile.svg)
+![Lifetime stats](https://humbertcostas.github.io/statsvg_rs/stats.svg)
 ```
 
 ## Two variants, one workflow
@@ -100,13 +100,13 @@ cp .env.example .env
 # Add a GitHub classic PAT to GH_TOKEN
 
 # Render either variant to stdout
-cargo run --release -- render --user akshay2211 --variant profile > profile.svg
-cargo run --release -- render --user akshay2211 --variant stats --highlight "Building cool things" > stats.svg
+cargo run --release -- render --user humbertcostas --variant profile > profile.svg
+cargo run --release -- render --user humbertcostas --variant stats --highlight "Building cool things" > stats.svg
 open profile.svg    # macOS  (xdg-open on Linux)
 
 # Or run as an HTTP server for iterating on layout
 cargo run
-curl "http://localhost:3000/api?username=akshay2211&variant=stats" -o card.svg
+curl "http://localhost:3000/api?username=humbertcostas&variant=stats" -o card.svg
 ```
 
 ## What's on the cards (and what isn't)
